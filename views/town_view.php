@@ -4,7 +4,7 @@ include_once("../town_city.php");
 
 $db = new Database();
 $connection = $db->getConnection();
-$townCity = new TownCity($db);
+$student = new TownCity($db);
 
 ?>
 <!DOCTYPE html>
@@ -25,9 +25,10 @@ $townCity = new TownCity($db);
     <table class="orange-theme">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Town Name</th>
-                <th>Action</th>
+                <th>No.</th>
+                <th>Place</th>
+                <th>Action </th>
+               
             </tr>
         </thead>
         <tbody>
@@ -36,12 +37,13 @@ $townCity = new TownCity($db);
             
             
             <?php
-            $results = $townCity->getAll(); 
+            $results = $student->getAll(); 
             foreach ($results as $result) {
             ?>
             <tr>
                 <td><?php echo $result['id']; ?></td>
                 <td><?php echo $result['name']; ?></td>
+          
                 <td>
                     <a href="town_edit.php?id=<?php echo $result['id']; ?>">Edit</a>
                     |
