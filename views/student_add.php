@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <!-- Include the header and navbar -->
     <?php include('../templates/header.html'); ?>
-    <?php include('../includes/navbar.php'); ?>
+    <?php include('../includes/navbar_2.php'); ?>
 
     <div class="content">
     <h1>Add Student Data</h1>
@@ -105,7 +105,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $database = new Database();
             $towns = new TownCity($database);
             $results = $towns->getAll();
-            // echo print_r($results);
             foreach($results as $result)
             {
                 echo '<option value="' . $result['id'] . '">' . $result['name'] . '</option>';

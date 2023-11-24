@@ -1,10 +1,15 @@
 <?php
 include_once("../db.php");
 include_once("../student.php");
+include_once("../student_details.php");
 
 $db = new Database();
 $connection = $db->getConnection();
 $student = new Student($db);
+
+$db1 = new Database();
+$conn = $db1->getConnection();
+$studentDetails = new StudentDetails($db1);
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +23,7 @@ $student = new Student($db);
 <body>
     <!-- Include the header -->
     <?php include('../templates/header.html'); ?>
-    <?php include('../includes/navbar.php'); ?>
+    <?php include('../includes/navbar_2.php'); ?>
 
     <div class="content">
     <h2>Student Records</h2>
@@ -31,6 +36,7 @@ $student = new Student($db);
                 <th>Last Name</th>
                 <th>Gender</th>
                 <th>Birthdate</th>
+                <th>Contact Number</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -48,8 +54,20 @@ $student = new Student($db);
                 <td><?php echo $result['first_name']; ?></td>
                 <td><?php echo $result['middle_name']; ?></td>
                 <td><?php echo $result['last_name']; ?></td>
-                <td><?php echo $result['gender']; ?></td>
-                <td><?php echo $result['birthday']; ?></td>
+                <td>
+                <?php if($result['gender']==0){
+                    echo "M";
+                } else {
+                    echo "F";
+                }?>
+                </td>
+                <td><?php 
+                    $date=date_create($result['birthday']);
+                    echo date_format($date,"M d Y");
+                ?></td>
+                <td>
+                    <?php echo $studentDetails->getContact($result['id']) ?>
+                </td>
                 <td>
                     <a href="student_edit.php?id=<?php echo $result['id']; ?>">Edit</a>
                     |

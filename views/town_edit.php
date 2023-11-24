@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = [
         'id' => $_POST['id'],  
         'name' => $_POST['name'],
-    ];
+    ]; 
 
     $db = new Database();
     $town_city = new TownCity($db);
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <!-- Include the header and navbar -->
     <?php include('../templates/header.html'); ?>
-    <?php include('../includes/navbar.php'); ?>
+    <?php include('../includes/navbar_2.php'); ?>
 
     <div class="content">
     <h2>Edit Student Information</h2>

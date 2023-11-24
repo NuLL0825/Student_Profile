@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <!-- Include the header and navbar -->
     <?php include('../templates/header.html'); ?>
-    <?php include('../includes/navbar.php'); ?>
+    <?php include('../includes/navbar_2.php'); ?>
 
     <div class="content">
     <h1>Add Town City</h1>

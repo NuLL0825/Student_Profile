@@ -110,7 +110,7 @@ class Student {
 
     public function displayAll(){
         try {
-            $sql = "SELECT * FROM students LIMIT 10"; // Modify the table name to match your database
+            $sql = "SELECT * FROM students LIMIT 15"; // Modify the table name to match your database
             $stmt = $this->db->getConnection()->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -181,24 +181,24 @@ class Student {
 $student = new Student(new Database());
 
 // Test the create method
-$student_id = $student->testCreateStudent();
+// $student_id = $student->testCreateStudent();
 
 // Test the read method with the created student ID
-$student->testReadStudent($student_id);
+// $student->testReadStudent($student_id);
 
 // Test the update method with the created student ID and updated data
-$update_data = [
-    'id' => $student_id,
-    'student_number' => 'S67890',
-    'first_name' => 'Alice',
-    'middle_name' => 'Jane',
-    'last_name' => 'Doe',
-    'gender' => '0',
-    'birthday' => '1995-05-20',
-];
-$student->testUpdateStudent($student_id, $update_data);
+// $update_data = [
+//     'id' => $student_id,
+//     'student_number' => 'S67890',
+//     'first_name' => 'Alice',
+//     'middle_name' => 'Jane',
+//     'last_name' => 'Doe',
+//     'gender' => '0',
+//     'birthday' => '1995-05-20',
+// ];
+// $student->testUpdateStudent($student_id, $update_data);
 
 // Test the delete method with the created student ID
-$student->testDeleteStudent($student_id);
+// $student->testDeleteStudent($student_id);
 
 ?>

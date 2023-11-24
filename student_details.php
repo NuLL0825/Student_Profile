@@ -8,6 +8,19 @@ class StudentDetails {
         $this->db = $db;
     }
 
+    public function getAll() {
+        try {
+            $sql = "SELECT * FROM student_details";
+            $stmt = $this->db->getConnection()->prepare($sql);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle errors (log or display)
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
+    
     // Create a student detail entry and link it to a student
     public function create($data) {
         try {
@@ -37,7 +50,91 @@ class StudentDetails {
         
     }
 
+    public function read($id) {
+        try {
+            $connection = $this->db->getConnection();
+
+            $sql = "SELECT * FROM student_details WHERE id = :id";
+            $stmt = $connection->prepare($sql);
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+
+            // Fetch the student data as an associative array
+            $studentData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $studentData;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
+
     // Other CRUD methods for student details
+    public function update($id, $data) {
+        try {
+            $sql = "UPDATE student_details SET
+                    contact_number = :contact_number,
+                    street = :street,
+                    zip_code = :zip_code,
+                    town_city = :town_city,
+                    province = :province
+                    WHERE student_id = :student_id";
+
+            $stmt = $this->db->getConnection()->prepare($sql);
+            // Bind parameters
+            $stmt->bindValue(':student_id', $data['student_id']);
+            $stmt->bindValue(':contact_number', $data['contact_number']);
+            $stmt->bindValue(':street', $data['street']);
+            $stmt->bindValue(':zip_code', $data['zip_code']);
+            $stmt->bindValue(':town_city', $data['town_city']);
+            $stmt->bindValue(':province', $data['province']);
+
+            // Execute the query
+            $stmt->execute();
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
+
+    public function delete($id) {
+        try {
+            $sql = "DELETE FROM student_details WHERE student_id = :student_id";
+            $stmt = $this->db->getConnection()->prepare($sql);
+            $stmt->bindValue(':student_id', $id);
+            $stmt->execute();
+
+            // Check if any rows were affected (record deleted)
+            if ($stmt->rowCount() > 0) {
+                return true; // Record deleted successfully
+            } else {
+                return false; // No records were deleted (student_id not found)
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
+
+    public function getContact($data) {
+        try {
+            $sql = "SELECT contact_number FROM student_details WHERE student_id={$data}";
+            $stmt = $this->db->getConnection()->prepare($sql);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_NUM);
+            if ($result !== false) {
+                $singleColumnValue = $result[0];
+            }
+            $result = implode("", $result);
+            return $result;
+        } catch (PDOException $e) {
+            // Handle errors (log or display)
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
 }
 
 ?>

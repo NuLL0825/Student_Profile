@@ -18,7 +18,7 @@ $townCity = new TownCity($db);
 <body>
     <!-- Include the header -->
     <?php include('../templates/header.html'); ?>
-    <?php include('../includes/navbar.php'); ?>
+    <?php include('../includes/navbar_2.php'); ?>
 
     <div class="content">
     <h2>Student Records</h2>

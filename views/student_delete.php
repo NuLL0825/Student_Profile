@@ -1,6 +1,7 @@
 <?php
 include_once("../db.php"); // Include the Database class file
 include_once("../student.php"); // Include the Student class file
+include_once("../student_details.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $id = $_GET['id']; // Retrieve the 'id' from the URL
@@ -9,8 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $db = new Database();
     $student = new Student($db);
 
+    $db1 = new Database();
+    $studentDetails = new StudentDetails($db1);
+
     // Call the delete method to delete the student record
-    if ($student->delete($id)) {
+    if ($student->delete($id) && $studentDetails->delete($id)) {
         echo "Record deleted successfully.";
     } else {
         echo "Failed to delete the record.";
